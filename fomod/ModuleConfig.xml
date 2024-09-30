@@ -1,0 +1,166 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
+	<moduleName>Bad Touch NVSE - Extended</moduleName>
+	<installSteps order="Explicit">
+		<installStep name="Bad Touch NVSE - Extended">
+			<optionalFileGroups order="Explicit">
+				<group name="Main Files" type="SelectExactlyOne">
+					<plugins order="Explicit">
+						<plugin name="Required">
+							<description> Bad Touch NVSE - Extended core files.</description>
+							<files>
+								<folder source="Main" destination="" priority="0" />
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+					</plugins>
+				</group>
+				<group name="Default Hazards" type="SelectAny">
+					<plugins order="Explicit">
+						<plugin name="Fire">
+							<description>Adds fire damage to several sources.</description>
+							<files>
+								<folder source="Optional\Fire" destination="" priority="0" />
+							</files>
+							<conditionFlags>
+								<flag name="Hazard Fire">Active</flag>
+							</conditionFlags>
+							<typeDescriptor>
+								<type name="Recommended"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Shock">
+							<description>Adds electric shock damage to several sources.</description>
+							<files>
+								<folder source="Optional\Shock" destination="" priority="0" />
+							</files>
+							<typeDescriptor>
+								<type name="Recommended"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Barbed Wire">
+							<description>Barbed wire will inflict damage on touch.&#13;&#10;
+Bad Touch NVSE - Extended: Adds additional barbed wire hazards.</description>
+							<files>
+								<folder source="Optional\Barbed Wire" destination="" priority="0" />
+							</files>
+							<conditionFlags>
+								<flag name="Hazard Barbed">Active</flag>
+							</conditionFlags>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Broken Glass">
+							<description>Broken glass will inflict damage on touch.&#13;&#10;
+NOTE: Can be difficult to see, causing damage from unknown sources.</description>
+							<files>
+								<folder source="Optional\Glass" destination="" priority="0" />
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Spiky Flora">
+							<description>Certain spiky flora will inflict damage on touch.</description>
+							<files>
+								<folder source="Optional\Flora" destination="" priority="0" />
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+					</plugins>
+				</group>
+				<group name="Extra Hazards" type="SelectAny">
+					<plugins order="Explicit">
+						<plugin name="Toxic Gas">
+							<description>Adds toxic damage to gas traps and certain gas plumes.</description>
+							<files>
+								<folder source="Optional\Toxic\Gas" destination="" priority="0" />
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Toxic Goo">
+							<description>Adds toxic damage to radiation goo spills.</description>
+							<files>
+								<folder source="Optional\Toxic\Goo" destination="" priority="0" />
+							</files>
+							<conditionFlags>
+								<flag name="Hazard Goo">Active</flag>
+							</conditionFlags>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="Toxic Sludge">
+							<description>Adds toxic damage to wasteland sludge pools.</description>
+							<files>
+								<folder source="Optional\Toxic\Sludge" destination="" priority="0" />
+							</files>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+					</plugins>
+				</group>
+				<group name="Mesh Patches" type="SelectAny">
+					<plugins order="Explicit">
+						<plugin name="Lumen">
+							<description>Select if you use Lumen - Ambient Lighting.</description>
+							<conditionFlags>
+								<flag name="Patch Lumen">Active</flag>
+							</conditionFlags>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+						<plugin name="MAC-TEN">
+							<description>Select if you use Meshes and Collision - Totally Enhanced Nifs (MAC-TEN).</description>
+							<conditionFlags>
+								<flag name="Patch MAC">Active</flag>
+							</conditionFlags>
+							<typeDescriptor>
+								<type name="Optional"/>
+							</typeDescriptor>
+						</plugin>
+					</plugins>
+				</group>
+			</optionalFileGroups>
+		</installStep>
+	</installSteps>
+	<conditionalFileInstalls>
+		<patterns>
+			<pattern>
+				<dependencies operator="And">
+					<flagDependency flag="Patch Lumen" value="Active"/>
+					<flagDependency flag="Hazard Fire" value="Active"/>
+				</dependencies>
+				<files>
+					<folder source="Patches\Lumen\Fire" destination="" priority="1" />
+				</files>
+			</pattern>
+			<pattern>
+				<dependencies operator="And">
+					<flagDependency flag="Patch Lumen" value="Active"/>
+					<flagDependency flag="Hazard Goo" value="Active"/>
+				</dependencies>
+				<files>
+					<folder source="Patches\Lumen\Toxic\Goo" destination="" priority="1" />
+				</files>
+			</pattern>
+			<pattern>
+				<dependencies operator="And">
+					<flagDependency flag="Patch MAC" value="Active"/>
+					<flagDependency flag="Hazard Barbed" value="Active"/>
+				</dependencies>
+				<files>
+					<folder source="Patches\MAC-TEN\Barbed Wire" destination="" priority="1" />
+				</files>
+			</pattern>
+		</patterns>
+	</conditionalFileInstalls>
+</config>

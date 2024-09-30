@@ -1,0 +1,21 @@
+SetGlobalValue DWHBadTouchArmorClassThresholdGlobal (GetINIFloat "General:iArmorClassThreshold" "BadTouch.ini")
+
+ref rHazard = Player.AuxVarGetRef "_LastTouchedHazardREF"
+
+if eval IsFormValid rHazard && rHazard.GetHasContact Player == 0
+	Player.Dispel DWHBadTouchFireEffect
+	Player.Dispel DWHBadTouchShockEffect
+	Player.Dispel DWHBadTouchRadiationEffect
+	Player.Dispel DWHBadTouchToxicEffect
+endif
+
+foreach array_var aHazards <- (GetKeywordForms "Hazards")
+
+	ref rHazard = (*aHazards)
+
+	SetEventHandler "OnTriggerEnter" (CompileScript "BadTouchExtended\OnTriggerEnter.gek") "first"::rHazard "second"::PlayerRef
+	if eval HasKeyword rHazard "HazardsContinuous"
+		SetEventHandler "OnTriggerLeave" DWHBadTouchOnTriggerLeaveEventHandlerUDF "first"::rHazard "second"::PlayerRef
+	endif
+
+loop
