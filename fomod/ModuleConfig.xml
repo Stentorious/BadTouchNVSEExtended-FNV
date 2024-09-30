@@ -1,21 +1,11 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://qconsulting.ca/fo3/ModConfig5.0.xsd">
 	<moduleName>Bad Touch NVSE - Extended</moduleName>
+	<requiredInstallFiles>
+		<folder source="Required" destination="" />
+	</requiredInstallFiles>
 	<installSteps order="Explicit">
 		<installStep name="Bad Touch NVSE - Extended">
 			<optionalFileGroups order="Explicit">
-				<group name="Main Files" type="SelectExactlyOne">
-					<plugins order="Explicit">
-						<plugin name="Required">
-							<description> Bad Touch NVSE - Extended core files.</description>
-							<files>
-								<folder source="Main" destination="" priority="0" />
-							</files>
-							<typeDescriptor>
-								<type name="Optional"/>
-							</typeDescriptor>
-						</plugin>
-					</plugins>
-				</group>
 				<group name="Default Hazards" type="SelectAny">
 					<plugins order="Explicit">
 						<plugin name="Fire">
