@@ -12,3 +12,6 @@
 *.esm binary
 *.dds binary
 *.nif binary
+*.dll binary
+*.pdb binary
+*.bsa binary
