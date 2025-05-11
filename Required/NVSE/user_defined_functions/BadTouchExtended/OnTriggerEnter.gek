@@ -1,55 +1,51 @@
 ref rAction
 ref rTrigger
 
-BEGIN Function { rTrigger, rAction }
+begin function {rTrigger, rAction}
 
-	if eval rAction.GetInSameCell Player
+	Player.AuxVarSetRef "_LastTouchedHazardREF" rTrigger
 
-		rAction.AuxVarSetRef "_LastTouchedHazardREF" rTrigger
-
-		if eval HasKeyWord rTrigger "HazardsFire"
-			rAction.CIOS DWHBadTouchFireEffect
-			rAction.Say Hit
-			DispatchEvent "DWHBadTouchFire"
-		elseif eval HasKeyWord rTrigger "HazardsShock"
-			rAction.CIOS DWHBadTouchShockEffect
-			rAction.Say Hit
-			DispatchEvent "DWHBadTouchShock"
-		elseif eval HasKeyWord rTrigger "HazardsRadioactive"
-			rAction.CIOS DWHBadTouchRadiationEffect
-			DispatchEvent "DWHBadTouchRadioactive"
-		elseif eval rAction.GetAC < GetGlobalValue DWHBadTouchArmorClassThresholdGlobal
-			if eval HasKeyWord rTrigger "HazardsFloraSpines"
-				rAction.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 2)
-				rAction.Say Hit
-				DispatchEvent "DWHBadTouchSpines"
-			elseif eval HasKeyWord rTrigger "HazardsFloraNettles"
-				rAction.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 3)
-				rAction.Say Hit
-				DispatchEvent "DWHBadTouchNettles"
-			elseif eval HasKeyWord rTrigger "HazardsFloraThorns"
-				rAction.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 4)
-				rAction.Say Hit
-				DispatchEvent "DWHBadTouchThorns"
-			elseif eval HasKeyWord rTrigger "HazardsBarbedWire"
-				rAction.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 0)
-				rAction.Say Hit
-				DispatchEvent "DWHBadTouchBarbedWire"
-			elseif eval HasKeyWord rTrigger "HazardsGlass"
-					rAction.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 1)
-					rAction.Say Hit
-					DispatchEvent "DWHBadTouchGlass"
-			elseif eval HasKeyWord rTrigger "HazardsMisc"
-				rAction.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 5)
-				rAction.Say Hit
-				DispatchEvent "DWHBadTouchMisc"
-			elseif eval HasKeyWord rTrigger "HazardsToxic"
-				rAction.CIOS DWHBadTouchToxicEffect
-				rAction.Say Hit
-				DispatchEvent "DWHBadTouchToxic"
-			endif
+	if eval HasKeyWord rTrigger "HazardsFire"
+		Player.CIOS DWHBadTouchFireEffect
+		Player.Say Hit
+		DispatchEvent "DWHBadTouchFire"
+	elseif eval HasKeyWord rTrigger "HazardsShock"
+		Player.CIOS DWHBadTouchShockEffect
+		Player.Say Hit
+		DispatchEvent "DWHBadTouchShock"
+	elseif eval HasKeyWord rTrigger "HazardsRadioactive"
+		Player.CIOS DWHBadTouchRadiationEffect
+		DispatchEvent "DWHBadTouchRadioactive"
+	elseif eval Player.GetAC < GetGlobalValue DWHBadTouchArmorClassThresholdGlobal
+		if eval HasKeyWord rTrigger "HazardsFloraSpines"
+			Player.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 2)
+			Player.Say Hit
+			DispatchEvent "DWHBadTouchSpines"
+		elseif eval HasKeyWord rTrigger "HazardsFloraNettles"
+			Player.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 3)
+			Player.Say Hit
+			DispatchEvent "DWHBadTouchNettles"
+		elseif eval HasKeyWord rTrigger "HazardsFloraThorns"
+			Player.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 4)
+			Player.Say Hit
+			DispatchEvent "DWHBadTouchThorns"
+		elseif eval HasKeyWord rTrigger "HazardsBarbedWire"
+			Player.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 0)
+			Player.Say Hit
+			DispatchEvent "DWHBadTouchBarbedWire"
+		elseif eval HasKeyWord rTrigger "HazardsGlass"
+			Player.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 1)
+			Player.Say Hit
+			DispatchEvent "DWHBadTouchGlass"
+		elseif eval HasKeyWord rTrigger "HazardsMisc"
+			Player.DamageAV Health (Goo1.AuxVarGetFlt "*BadTouch_INI" 5)
+			Player.Say Hit
+			DispatchEvent "DWHBadTouchMisc"
+		elseif eval HasKeyWord rTrigger "HazardsToxic"
+			Player.CIOS DWHBadTouchToxicEffect
+			Player.Say Hit
+			DispatchEvent "DWHBadTouchToxic"
 		endif
-
 	endif
 
-END
+end

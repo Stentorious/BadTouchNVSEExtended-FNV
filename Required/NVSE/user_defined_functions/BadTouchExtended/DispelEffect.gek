@@ -1,0 +1,12 @@
+ref rTrigger
+
+begin Function {rTrigger}
+
+	if eval IsFormValid rTrigger == 0 || rTrigger.GetHasContact Player == 0
+		Player.Dispel DWHBadTouchFireEffect
+		Player.Dispel DWHBadTouchShockEffect
+		Player.Dispel DWHBadTouchRadiationEffect
+		Player.Dispel DWHBadTouchToxicEffect
+	endif
+
+end

@@ -1,0 +1,18 @@
+ref rAction
+ref rTrigger
+
+begin function {rTrigger, rAction}
+	if eval HasKeyWord rTrigger "HazardsToxic"
+		Player.Dispel DWHBadTouchToxicEffect
+		return
+	elseif eval HasKeyWord rTrigger "HazardsFire"
+		Player.Dispel DWHBadTouchFireEffect
+		return
+	elseif eval HasKeyWord rTrigger "HazardsShock"
+		Player.Dispel DWHBadTouchShockEffect
+		return
+	elseif eval HasKeyWord rTrigger "HazardsRadioactive"
+		Player.Dispel DWHBadTouchRadiationEffect
+		return
+	endif
+end

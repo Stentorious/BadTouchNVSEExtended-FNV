@@ -1,13 +1,35 @@
-; Bad Touch NVSE - Extended 1.5 - Stentorious
+; Bad Touch NVSE: Extended - Stentorious
+
+; Check for requirements
+if IsModLoaded "Bad Touch.esm" == 0
+	MessageBoxEx "Bad Touch NVSE - Extended missing requirement!%rInstall Bad Touch NVSE."
+	return
+endif
+if GetNVSEVersion > 5 && GetNVSERevision > 2 && GetNVSEBeta > 9
+else
+	MessageBoxEx "Bad Touch NVSE - Extended missing requirement!%rInstall xNVSE 6.3.10+."
+	return
+endif
+if GetPluginVersion "ShowOffNVSE Plugin" < 165
+	MessageBoxEx "Bad Touch NVSE - Extended missing requirement!%rInstall latest ShowOff NVSE plugin."
+	return
+endif
 
 ; Load INI settings
-SetNthEffectTraitNumeric DWHBadTouchFireEffect 0 0 (GetMaxOf 0 (GetINIFloat "Damage:iShock" "BadTouchExtended.ini"))
-SetNthEffectTraitNumeric DWHBadTouchShockEffect 0 0 (GetMaxOf 0 (GetINIFloat "Damage:iShock" "BadTouchExtended.ini"))
-SetNthEffectTraitNumeric DWHBadTouchToxicEffect 0 0 (GetMaxOf 0 (GetINIFloat "Damage:iToxic" "BadTouchExtended.ini"))
-SetNthEffectTraitNumeric DWHBadTouchRadiationEffect 0 0 (GetMaxOf 0 (GetINIFloat "Damage:iRadiation" "BadTouchExtended.ini"))
-Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat "Damage:iBarbedWire" "BadTouchExtended.ini")) 0
-Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat "Damage:iBrokenGlass" "BadTouchExtended.ini")) 1
-Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat "Damage:iSpines" "BadTouchExtended.ini")) 2
-Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat "Damage:iNettles" "BadTouchExtended.ini")) 3
-Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat "Damage:iThorns" "BadTouchExtended.ini")) 4
-Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat "Damage:iMisc" "BadTouchExtended.ini")) 5
+SetNthEffectTraitNumeric DWHBadTouchFireEffect 0 0 (GetMaxOf 0 (GetINIFloat_Cached "Damage:iFire" "BadTouchExtended.ini"))
+SetNthEffectTraitNumeric DWHBadTouchShockEffect 0 0 (GetMaxOf 0 (GetINIFloat_Cached "Damage:iShock" "BadTouchExtended.ini"))
+SetNthEffectTraitNumeric DWHBadTouchToxicEffect 0 0 (GetMaxOf 0 (GetINIFloat_Cached "Damage:iToxic" "BadTouchExtended.ini"))
+SetNthEffectTraitNumeric DWHBadTouchRadiationEffect 0 0 (GetMaxOf 0 (GetINIFloat_Cached "Damage:iRadiation" "BadTouchExtended.ini"))
+Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat_Cached "Damage:iBarbedWire" "BadTouchExtended.ini")) 0
+Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat_Cached "Damage:iBrokenGlass" "BadTouchExtended.ini")) 1
+Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat_Cached "Damage:iSpines" "BadTouchExtended.ini")) 2
+Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat_Cached "Damage:iNettles" "BadTouchExtended.ini")) 3
+Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat_Cached "Damage:iThorns" "BadTouchExtended.ini")) 4
+Goo1.AuxVarSetFlt "*BadTouch_INI" (GetMaxOf 0 (GetINIFloat_Cached "Damage:iMisc" "BadTouchExtended.ini")) 5
+CloseFileSO "BadTouchExtended.ini" 0
+
+; Update effect duration
+SetNthEffectTraitNumeric DWHBadTouchFireEffect 0 2 0
+SetNthEffectTraitNumeric DWHBadTouchShockEffect 0 2 0
+SetNthEffectTraitNumeric DWHBadTouchToxicEffect 0 2 0
+SetNthEffectTraitNumeric DWHBadTouchRadiationEffect 0 2 0

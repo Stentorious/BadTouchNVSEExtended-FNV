@@ -1,21 +1,28 @@
+; Bad Touch NVSE: Extended - Stentorious
+
+; On game load
+Call (CompileScript "BadTouchExtended\DispelEffect.gek") (Player.AuxVarGetRef "_LastTouchedHazardREF")
+
+; On game restart
+if eval Goo1.AuxVarGetFlt "*BadTouch_Init"
+	Return
+endif
+Goo1.AuxVarSetFlt "*BadTouch_Init" 1
+
 SetGlobalValue DWHBadTouchArmorClassThresholdGlobal (GetINIFloat "General:iArmorClassThreshold" "BadTouch.ini")
 
-ref rHazard = Player.AuxVarGetRef "_LastTouchedHazardREF"
-
-if eval IsFormValid rHazard && rHazard.GetHasContact Player == 0
-	Player.Dispel DWHBadTouchFireEffect
-	Player.Dispel DWHBadTouchShockEffect
-	Player.Dispel DWHBadTouchRadiationEffect
-	Player.Dispel DWHBadTouchToxicEffect
+array_var aHazards = GetKeywordForms "Hazards"
+int iSize = 0
+if eval (iSize = Ar_Size aHazards) > 0
+	while (iSize -= 1) > -1
+		ref rHazard = aHazards[iSize]
+		SetEventHandler "OnTriggerEnter" (CompileScript "BadTouchExtended\OnTriggerEnter.gek") "first"::rHazard "second"::PlayerRef
+		if eval HasKeyword rHazard "HazardsContinuous"
+			SetEventHandler "OnTriggerLeave" (CompileScript "BadTouchExtended\OnTriggerExit.gek") "first"::rHazard "second"::PlayerRef
+		endif
+	loop
 endif
 
-foreach array_var aHazards <- (GetKeywordForms "Hazards")
-
-	ref rHazard = (*aHazards)
-
-	SetEventHandler "OnTriggerEnter" (CompileScript "BadTouchExtended\OnTriggerEnter.gek") "first"::rHazard "second"::PlayerRef
-	if eval HasKeyword rHazard "HazardsContinuous"
-		SetEventHandler "OnTriggerLeave" DWHBadTouchOnTriggerLeaveEventHandlerUDF "first"::rHazard "second"::PlayerRef
-	endif
-
-loop
+; Event handlers
+SetEventHandler "OnCellEnter" ({ref rTemp} => Call (CompileScript "BadTouchExtended\DispelEffect.gek") (Player.AuxVarGetRef "_LastTouchedHazardREF"))
+SetOnFastTravelEventHandler ({ref rTemp} => Call (CompileScript "BadTouchExtended\DispelEffect.gek") (Player.AuxVarGetRef "_LastTouchedHazardREF")) 1
