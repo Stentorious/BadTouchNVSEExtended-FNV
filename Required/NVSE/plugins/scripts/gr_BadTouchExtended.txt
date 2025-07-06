@@ -6,7 +6,7 @@ if IsModLoaded "Bad Touch.esm" == 0
 	return
 endif
 if eval GetNVSEVersion < 6 || (GetNVSEVersion == 6 && GetNVSERevision < 4)
-	MessageBoxEx "Bad Touch NVSE - Extended missing requirement!%rInstall xNVSE 6.3.10+."
+	MessageBoxEx "Bad Touch NVSE - Extended missing requirement!%rInstall xNVSE 6.4.0+."
 	return
 endif
 if GetPluginVersion "ShowOffNVSE Plugin" < 165
