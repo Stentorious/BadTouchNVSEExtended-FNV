@@ -5,8 +5,7 @@ if IsModLoaded "Bad Touch.esm" == 0
 	MessageBoxEx "Bad Touch NVSE - Extended missing requirement!%rInstall Bad Touch NVSE."
 	return
 endif
-if GetNVSEVersion > 5 && GetNVSERevision > 2 && GetNVSEBeta > 9
-else
+if eval GetNVSEVersion < 6 || (GetNVSEVersion == 6 && GetNVSERevision < 4)
 	MessageBoxEx "Bad Touch NVSE - Extended missing requirement!%rInstall xNVSE 6.3.10+."
 	return
 endif
